@@ -1,18 +1,26 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { colors } from "@/constants/theme";
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <>
+      <StatusBar style="light" />
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: colors.blue },
+          headerTintColor: colors.white,
+          headerTitleStyle: { fontWeight: "bold", fontSize: 22 },
+          contentStyle: { backgroundColor: colors.cream },
+        }}
+      >
+        <Stack.Screen name="index" options={{ headerShown: false, title: "Little Lights" }} />
+        <Stack.Screen name="bible" options={{ title: "Bible Stories" }} />
+        <Stack.Screen name="games" options={{ title: "Games" }} />
+        <Stack.Screen name="songs" options={{ title: "Sing-Along" }} />
+        <Stack.Screen name="prayer" options={{ title: "Family Prayer" }} />
+        <Stack.Screen name="journal" options={{ title: "Thank-You Journal" }} />
+      </Stack>
+    </>
   );
 }
