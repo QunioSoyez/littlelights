@@ -15,7 +15,7 @@ export default function RootLayout() {
         }}
       >
         <Stack.Screen name="index" options={{ headerShown: false, title: "Little Lights" }} />
-        <Stack.Screen name="bible" options={{ title: "Bible Stories" }} />
+        <Stack.Screen name="bible" options={{ title: "Bible Read-Along" }} />
         <Stack.Screen name="games" options={{ title: "Games" }} />
         <Stack.Screen name="songs" options={{ title: "Sing-Along" }} />
         <Stack.Screen name="prayer" options={{ title: "Family Prayer" }} />

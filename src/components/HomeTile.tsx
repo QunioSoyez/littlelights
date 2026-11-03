@@ -1,56 +1,61 @@
-import { Link, type Href } from "expo-router";
+import { Image, type ImageSource } from "expo-image";
+import { router, type Href } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { colors, sizes } from "@/constants/theme";
 
 type Props = {
   href: Href;
-  emoji: string;
+  picture: ImageSource; // large scene picture
+  icon: ImageSource; // small round icon
   label: string;
   color: string;
+  width: number;
 };
 
-// A big, colorful button for the home screen.
-export default function HomeTile({ href, emoji, label, color }: Props) {
+// A big picture card with rounded corners that opens a section of the app.
+export default function HomeTile({ href, picture, icon, label, color, width }: Props) {
   return (
-    <Link href={href} asChild>
+    // The outer View sets the size, border and rounded corners so they work the same on
+    // web, iOS and Android. (Styling the Pressable through <Link asChild> was ignored on web.)
+    <View style={[styles.card, { width, borderColor: color }]}>
       <Pressable
-        accessibilityRole="button"
+        accessibilityRole="link"
         accessibilityLabel={label}
-        style={({ pressed }) => [
-          styles.tile,
-          { backgroundColor: color, transform: [{ scale: pressed ? 0.96 : 1 }] },
-        ]}
+        onPress={() => router.push(href)}
+        style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
       >
-        <View style={styles.inner}>
-          <Text style={styles.emoji}>{emoji}</Text>
-          <Text style={styles.label}>{label}</Text>
+        <Image source={picture} style={styles.picture} contentFit="cover" />
+        <View style={[styles.labelBar, { backgroundColor: color }]}>
+          <Image source={icon} style={styles.icon} />
+          <Text style={styles.label} numberOfLines={1}>
+            {label}
+          </Text>
         </View>
       </Pressable>
-    </Link>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  tile: {
-    flexGrow: 1,
-    flexBasis: 220,
-    minHeight: sizes.tileMinHeight,
+  card: {
     borderRadius: sizes.radius,
-    padding: 16,
-    justifyContent: "center",
-    alignItems: "center",
+    borderWidth: 4,
+    overflow: "hidden", // clips the picture to the rounded corners
+    backgroundColor: colors.white,
     shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
+    shadowOpacity: 0.18,
+    shadowRadius: 10,
     shadowOffset: { width: 0, height: 4 },
-    elevation: 4,
+    elevation: 5,
   },
-  inner: { alignItems: "center", gap: 8 },
-  emoji: { fontSize: 56 },
-  label: {
-    color: colors.white,
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
+  picture: { width: "100%", aspectRatio: 1408 / 768 }, // same shape as the original pictures
+  labelBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
   },
+  icon: { width: 48, height: 48, borderRadius: 24, backgroundColor: colors.white },
+  label: { color: colors.white, fontSize: 24, fontWeight: "bold", flexShrink: 1 },
 });
