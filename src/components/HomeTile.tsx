@@ -9,15 +9,14 @@ type Props = {
   icon: ImageSource; // small round icon
   label: string;
   color: string;
-  width: number;
 };
 
 // A big picture card with rounded corners that opens a section of the app.
-export default function HomeTile({ href, picture, icon, label, color, width }: Props) {
+export default function HomeTile({ href, picture, icon, label, color }: Props) {
   return (
     // The outer View sets the size, border and rounded corners so they work the same on
     // web, iOS and Android. (Styling the Pressable through <Link asChild> was ignored on web.)
-    <View style={[styles.card, { width, borderColor: color }]}>
+    <View style={[styles.card, { borderColor: color }]}>
       <Pressable
         accessibilityRole="link"
         accessibilityLabel={label}
@@ -38,6 +37,7 @@ export default function HomeTile({ href, picture, icon, label, color, width }: P
 
 const styles = StyleSheet.create({
   card: {
+    width: "100%", // every card fills the same column, so they're always the same size
     borderRadius: sizes.radius,
     borderWidth: 4,
     overflow: "hidden", // clips the picture to the rounded corners
@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
-    paddingVertical: 10,
+    paddingVertical: 12,
     paddingHorizontal: 14,
   },
-  icon: { width: 48, height: 48, borderRadius: 24, backgroundColor: colors.white },
-  label: { color: colors.white, fontSize: 24, fontWeight: "bold", flexShrink: 1 },
+  icon: { width: 56, height: 56, borderRadius: 28, backgroundColor: colors.white },
+  label: { color: colors.white, fontSize: 28, fontWeight: "bold", flexShrink: 1 },
 });

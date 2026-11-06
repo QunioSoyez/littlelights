@@ -1,24 +1,17 @@
 import { Image } from "expo-image";
-import { ScrollView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HomeTile from "@/components/HomeTile";
 import PatternBackground from "@/components/PatternBackground";
 import { sections } from "@/constants/sections";
 import { colors, sizes } from "@/constants/theme";
 
-const MAX_WIDTH = 1200; // keeps cards from getting huge on wide screens
-const PADDING = 20;
-const GAP = 20;
-
+// Cards are stacked top to bottom in one column. The column width is fixed in the
+// styles (not measured from the screen), so the web site's pre-built pages and the
+// app always show the cards at the same size.
+const COLUMN_WIDTH = 640;
 
 export default function Home() {
-  const { width } = useWindowDimensions();
-
-  // 1 column on phones, 2 on small tablets, 3 on big screens
-  const contentWidth = Math.min(width, MAX_WIDTH) - PADDING * 2;
-  const columns = contentWidth >= 1000 ? 3 : contentWidth >= 560 ? 2 : 1;
-  const cardWidth = (contentWidth - GAP * (columns - 1)) / columns;
-
   return (
     <PatternBackground>
       <SafeAreaView style={styles.safe}>
@@ -35,7 +28,7 @@ export default function Home() {
             <Text style={styles.ref}>Matthew 5:16</Text>
           </Text>
 
-          <View style={[styles.grid, { width: contentWidth }]}>
+          <View style={styles.column}>
             {sections.map((s) => (
               <HomeTile
                 key={s.name}
@@ -44,8 +37,7 @@ export default function Home() {
                 color={s.color}
                 picture={s.picture}
                 icon={s.icon}
-                width={cardWidth}
-              />
+                />
             ))}
           </View>
         </ScrollView>
@@ -56,7 +48,7 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1 },
-  container: { padding: PADDING, alignItems: "center", gap: 16 },
+  container: { padding: 20, alignItems: "center", gap: 16 },
   logo: { width: 180, height: 180 },
   verse: {
     backgroundColor: "rgba(255, 249, 236, 0.9)", // soft cream backing so the pattern doesn't fight the text
@@ -71,10 +63,9 @@ const styles = StyleSheet.create({
     maxWidth: 700,
   },
   ref: { fontSize: sizes.small, color: colors.textLight, fontStyle: "normal" },
-  grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center", // centers the last row when it isn't full
-    gap: GAP,
+  column: {
+    width: "100%",
+    maxWidth: COLUMN_WIDTH,
+    gap: 24,
   },
 });
