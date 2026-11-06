@@ -35,7 +35,13 @@ export default function RootLayout() {
           <Tabs.Screen
             key={s.name}
             name={s.name}
-            options={{ title: s.title, tabBarLabel: s.tabLabel, tabBarIcon: tabIcon(s.icon) }}
+            options={{
+              title: s.title,
+              tabBarLabel: s.tabLabel,
+              tabBarIcon: tabIcon(s.icon),
+              // The Bible tab shows its own headers (story list -> story reader)
+              headerShown: s.name !== "bible",
+            }}
           />
         ))}
       </Tabs>

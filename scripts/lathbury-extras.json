@@ -1,0 +1,109 @@
+{
+  "_about": "Extra pictures for stories that have none in the book. 'caption' is shown under the picture (edit freely). 'file' is relative to the sources folder (C:\\01apps\\LittleLights\\sources). Missing files are skipped. Each picture goes right after the story's first paragraph.",
+  "ot-04": {
+    "caption": "Isaac sees the travelers coming at sunset",
+    "file": "extra-images/ot-04.jpg",
+    "note": "Alternative: the book's frontispiece (lathbury/25309-h/images/img-front.jpg) shows Abraham's servant giving Rebekah a bracelet; Gutenberg mislabels it 'Moses and Zipporah'."
+  },
+  "ot-07": {
+    "caption": "Joseph in prison with the king's butler and baker",
+    "file": "extra-images/ot-07.jpg"
+  },
+  "ot-10": {
+    "caption": "Moses helps the seven sisters water their flocks at the well",
+    "file": "extra-images/ot-10.jpg"
+  },
+  "ot-18": {
+    "caption": "Samuel anoints Saul to be king",
+    "file": "extra-images/ot-18.jpg"
+  },
+  "ot-23": {
+    "caption": "King David builds Jerusalem, the city of David",
+    "file": "extra-images/ot-23.jpg"
+  },
+  "ot-24": {
+    "caption": "King David is sorry and prays to God",
+    "file": "extra-images/ot-24.jpg"
+  },
+  "ot-29": {
+    "caption": "Naaman comes with his horses and chariot",
+    "file": "extra-images/ot-29.jpg"
+  },
+  "ot-30": {
+    "caption": "The boy kings of Judah",
+    "file": "extra-images/ot-30.jpg"
+  },
+  "nt-05": {
+    "caption": "Young Jesus working in the carpenter's shop",
+    "file": "extra-images/nt-05.jpg"
+  },
+  "nt-07": {
+    "caption": "Jesus alone in the desert",
+    "file": "extra-images/nt-07.jpg"
+  },
+  "nt-08": {
+    "caption": "Jesus and His first disciples by the lake",
+    "file": "extra-images/nt-08.jpg"
+  },
+  "nt-10": {
+    "caption": "Jesus clears the money-changers out of the Temple",
+    "file": "extra-images/nt-10.jpg"
+  },
+  "nt-11": {
+    "caption": "Jesus teaches and heals in the Temple courts",
+    "file": "extra-images/nt-11.jpg"
+  },
+  "nt-15": {
+    "caption": "Jesus heals the sick in Capernaum",
+    "file": "extra-images/nt-15.jpg"
+  },
+  "nt-18": {
+    "caption": "The crowds of Capernaum come to Jesus",
+    "file": "extra-images/nt-18.jpg"
+  },
+  "nt-19": {
+    "caption": "Mary of Magdala comes to Jesus",
+    "file": "extra-images/nt-19.jpg"
+  },
+  "nt-24": {
+    "caption": "The disciples' boat on the stormy lake",
+    "file": "extra-images/nt-24.jpg"
+  },
+  "nt-25": {
+    "caption": "Jesus helps a blind man to see",
+    "file": "extra-images/nt-25.jpg"
+  },
+  "nt-27": {
+    "caption": "Jesus shines with glory",
+    "file": "extra-images/nt-27.jpg"
+  },
+  "nt-31": {
+    "caption": "Lazarus comes out of the tomb",
+    "file": "extra-images/nt-31.jpg"
+  },
+  "nt-32": {
+    "caption": "The rich young man talks with Jesus",
+    "file": "extra-images/nt-32.jpg"
+  },
+  "nt-33": {
+    "caption": "Jesus leads His friends on the road to Jerusalem",
+    "file": "extra-images/nt-33.jpg"
+  },
+  "nt-35": {
+    "caption": "Jesus and the fig tree on the way to the Temple",
+    "file": "extra-images/nt-35.jpg"
+  },
+  "nt-38": {
+    "caption": "Jesus and His friends on the Mount of Olives at sunset",
+    "file": "extra-images/nt-38.jpg"
+  },
+  "nt-46": {
+    "caption": "Thomas kneels before the risen Jesus",
+    "file": "extra-images/nt-46.jpg"
+  },
+  "nt-48": {
+    "caption": "The Holy Spirit comes like flames of fire",
+    "file": "extra-images/nt-48.jpg",
+    "note": "Current picture is a jeweled cross with a lamb, not the Pentecost flames - consider replacing."
+  }
+}
