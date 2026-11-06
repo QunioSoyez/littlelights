@@ -1,0 +1,16 @@
+// Cloudflare Worker config for the Little Lights web version.
+// Cloudflare builds the site with `npx expo export -p web` (output goes to ./dist)
+// and serves those files from littlelights.live.
+{
+  "name": "littlelights",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    // Unknown addresses load the app, which shows its own "not found" screen
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [
+    { "pattern": "littlelights.live", "custom_domain": true },
+    { "pattern": "www.littlelights.live", "custom_domain": true }
+  ]
+}
