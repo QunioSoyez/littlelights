@@ -2,12 +2,11 @@ import type { ImageSource } from "expo-image";
 import { sectionColors } from "@/constants/theme";
 
 // One place to define each section of the app.
-// Used by the home screen cards, the bottom tab bar and the placeholder screens.
+// Used by the home screen cards, the menu and the placeholder screens.
 export type Section = {
   name: "bible" | "games" | "songs" | "prayer" | "journal"; // file name in src/app
   href: "/bible" | "/games" | "/songs" | "/prayer" | "/journal";
   title: string; // full name (home card + screen header)
-  tabLabel: string; // short name for the bottom tab bar
   color: string;
   picture: ImageSource; // big scene picture for the home card
   icon: ImageSource; // small blue round icon
@@ -20,7 +19,6 @@ export const sections: Section[] = [
     name: "bible",
     href: "/bible",
     title: "Bible Read-Along",
-    tabLabel: "Read",
     color: sectionColors.bible,
     picture: require("../../assets/images/home/bible.jpg"),
     icon: require("../../assets/images/icons/bible.png"),
@@ -29,7 +27,6 @@ export const sections: Section[] = [
     name: "games",
     href: "/games",
     title: "Games",
-    tabLabel: "Games",
     color: sectionColors.games,
     picture: require("../../assets/images/home/games.jpg"),
     icon: require("../../assets/images/icons/games.png"),
@@ -38,7 +35,6 @@ export const sections: Section[] = [
     name: "songs",
     href: "/songs",
     title: "Sing-Along",
-    tabLabel: "Sing",
     color: sectionColors.songs,
     picture: require("../../assets/images/home/songs.jpg"),
     icon: require("../../assets/images/icons/songs.png"),
@@ -47,7 +43,6 @@ export const sections: Section[] = [
     name: "prayer",
     href: "/prayer",
     title: "Family Prayer",
-    tabLabel: "Pray",
     color: sectionColors.prayer,
     picture: require("../../assets/images/home/prayer.jpg"),
     icon: require("../../assets/images/icons/prayer.png"),
@@ -56,7 +51,6 @@ export const sections: Section[] = [
     name: "journal",
     href: "/journal",
     title: "Thank-You Journal",
-    tabLabel: "Journal",
     color: sectionColors.journal,
     picture: require("../../assets/images/home/journal.jpg"),
     icon: require("../../assets/images/icons/journal.png"),

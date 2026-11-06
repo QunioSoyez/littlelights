@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import MenuButton from "@/components/AppMenu";
 import { colors } from "@/constants/theme";
 
 // Always keep the story list underneath a story, so a story opened directly
@@ -13,6 +14,7 @@ export default function BibleLayout() {
         headerStyle: { backgroundColor: colors.blue },
         headerTintColor: colors.white,
         headerTitleStyle: { fontWeight: "bold", fontSize: 22 },
+        headerRight: () => <MenuButton />,
         contentStyle: { backgroundColor: colors.cream },
       }}
     >

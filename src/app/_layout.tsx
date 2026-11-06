@@ -1,50 +1,36 @@
-import { Image, type ImageSource } from "expo-image";
-import { Tabs } from "expo-router/js-tabs";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { homeIcon, sections } from "@/constants/sections";
+import MenuButton from "@/components/AppMenu";
+import { sections } from "@/constants/sections";
 import { colors } from "@/constants/theme";
 
-// Round tab icon: full color when selected, faded when not.
-function tabIcon(source: ImageSource) {
-  return ({ focused }: { focused: boolean }) => (
-    <Image source={source} style={{ width: 36, height: 36, opacity: focused ? 1 : 0.45 }} />
-  );
-}
+// Keep Home underneath any screen opened directly (link or page reload), so there's a back arrow.
+export const unstable_settings = { initialRouteName: "index" };
 
 export default function RootLayout() {
   return (
     <>
       <StatusBar style="light" />
-      <Tabs
+      <Stack
         screenOptions={{
           headerStyle: { backgroundColor: colors.blue },
           headerTintColor: colors.white,
           headerTitleStyle: { fontWeight: "bold", fontSize: 22 },
-          sceneStyle: { backgroundColor: colors.cream },
-          tabBarActiveTintColor: colors.blue,
-          tabBarInactiveTintColor: colors.textLight,
-          tabBarLabelStyle: { fontSize: 13, fontWeight: "bold" },
-          tabBarStyle: { height: 76, paddingTop: 6, backgroundColor: colors.white },
+          headerRight: () => <MenuButton />, // hamburger menu on every screen
+          contentStyle: { backgroundColor: colors.cream },
         }}
       >
-        <Tabs.Screen
-          name="index"
-          options={{ title: "Home", headerShown: false, tabBarIcon: tabIcon(homeIcon) }}
-        />
+        <Stack.Screen name="index" options={{ title: "Little Lights" }} />
         {sections.map((s) => (
-          <Tabs.Screen
+          <Stack.Screen
             key={s.name}
             name={s.name}
-            options={{
-              title: s.title,
-              tabBarLabel: s.tabLabel,
-              tabBarIcon: tabIcon(s.icon),
-              // The Bible tab shows its own headers (story list -> story reader)
-              headerShown: s.name !== "bible",
-            }}
+            // The Bible section has its own headers (story list -> story reader)
+            options={{ title: s.title, headerShown: s.name !== "bible" }}
           />
         ))}
-      </Tabs>
+        <Stack.Screen name="about" options={{ title: "About" }} />
+      </Stack>
     </>
   );
 }

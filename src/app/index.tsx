@@ -1,6 +1,5 @@
 import { Image } from "expo-image";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import HomeTile from "@/components/HomeTile";
 import PatternBackground from "@/components/PatternBackground";
 import { sections } from "@/constants/sections";
@@ -14,7 +13,7 @@ const COLUMN_WIDTH = 640;
 export default function Home() {
   return (
     <PatternBackground>
-      <SafeAreaView style={styles.safe}>
+      <View style={styles.screen}>
         <ScrollView contentContainerStyle={styles.container}>
           <Image
             source={require("../../assets/images/logo.png")}
@@ -41,13 +40,13 @@ export default function Home() {
             ))}
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </PatternBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1 },
+  screen: { flex: 1 },
   container: { padding: 20, alignItems: "center", gap: 16 },
   logo: { width: 180, height: 180 },
   verse: {
