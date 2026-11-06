@@ -1,26 +1,44 @@
-import { Stack } from "expo-router";
+import { Image, type ImageSource } from "expo-image";
+import { Tabs } from "expo-router/js-tabs";
 import { StatusBar } from "expo-status-bar";
+import { homeIcon, sections } from "@/constants/sections";
 import { colors } from "@/constants/theme";
+
+// Round tab icon: full color when selected, faded when not.
+function tabIcon(source: ImageSource) {
+  return ({ focused }: { focused: boolean }) => (
+    <Image source={source} style={{ width: 36, height: 36, opacity: focused ? 1 : 0.45 }} />
+  );
+}
 
 export default function RootLayout() {
   return (
     <>
       <StatusBar style="light" />
-      <Stack
+      <Tabs
         screenOptions={{
           headerStyle: { backgroundColor: colors.blue },
           headerTintColor: colors.white,
           headerTitleStyle: { fontWeight: "bold", fontSize: 22 },
-          contentStyle: { backgroundColor: colors.cream },
+          sceneStyle: { backgroundColor: colors.cream },
+          tabBarActiveTintColor: colors.blue,
+          tabBarInactiveTintColor: colors.textLight,
+          tabBarLabelStyle: { fontSize: 13, fontWeight: "bold" },
+          tabBarStyle: { height: 76, paddingTop: 6, backgroundColor: colors.white },
         }}
       >
-        <Stack.Screen name="index" options={{ headerShown: false, title: "Little Lights" }} />
-        <Stack.Screen name="bible" options={{ title: "Bible Read-Along" }} />
-        <Stack.Screen name="games" options={{ title: "Games" }} />
-        <Stack.Screen name="songs" options={{ title: "Sing-Along" }} />
-        <Stack.Screen name="prayer" options={{ title: "Family Prayer" }} />
-        <Stack.Screen name="journal" options={{ title: "Thank-You Journal" }} />
-      </Stack>
+        <Tabs.Screen
+          name="index"
+          options={{ title: "Home", headerShown: false, tabBarIcon: tabIcon(homeIcon) }}
+        />
+        {sections.map((s) => (
+          <Tabs.Screen
+            key={s.name}
+            name={s.name}
+            options={{ title: s.title, tabBarLabel: s.tabLabel, tabBarIcon: tabIcon(s.icon) }}
+          />
+        ))}
+      </Tabs>
     </>
   );
 }
