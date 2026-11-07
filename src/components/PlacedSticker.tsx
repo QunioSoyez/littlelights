@@ -19,6 +19,7 @@ type Props = {
   sceneW: number;
   sceneH: number;
   selected: boolean;
+  rotated: boolean; // builder is drawn sideways (phone held upright)
   onSelect: (uid: number) => void;
   onMove: (uid: number, x: number, y: number) => void;
   onScale: (uid: number, scale: number) => void;
@@ -36,15 +37,19 @@ function distance(e: GestureResponderEvent) {
 // One sticker placed on the scene. Drag it with one finger (or the mouse);
 // pinch with two fingers to resize. Uses React Native's built-in touch system
 // (PanResponder), which works the same on iOS, Android and the web.
-export default function PlacedSticker({ placed, sticker, sceneW, sceneH, selected, onSelect, onMove, onScale }: Props) {
+export default function PlacedSticker({ placed, sticker, sceneW, sceneH, selected, rotated, onSelect, onMove, onScale }: Props) {
   const drag = useRef(new Animated.ValueXY()).current; // live offset while dragging
   const pinch = useRef(new Animated.Value(1)).current; // live scale while pinching
 
   // Latest values for the touch handlers (kept up to date after each render)
-  const latest = useRef({ placed, sceneW, sceneH, onSelect, onMove, onScale });
+  const latest = useRef({ placed, sceneW, sceneH, rotated, onSelect, onMove, onScale });
   useEffect(() => {
-    latest.current = { placed, sceneW, sceneH, onSelect, onMove, onScale };
+    latest.current = { placed, sceneW, sceneH, rotated, onSelect, onMove, onScale };
   });
+
+  // Finger movement is measured on the glass. When the builder is drawn sideways
+  // (turned a quarter turn left), "up" on the glass is "left" in the scene.
+  const toScene = (dx: number, dy: number) => (latest.current.rotated ? { x: -dy, y: dx } : { x: dx, y: dy });
 
   const pinchStart = useRef<number | null>(null);
   const pinchRatio = useRef(1);
@@ -69,7 +74,7 @@ export default function PlacedSticker({ placed, sticker, sceneW, sceneH, selecte
           pinch.setValue(pinchRatio.current);
         } else if (pinchStart.current === null) {
           // One finger: move
-          drag.setValue({ x: g.dx, y: g.dy });
+          drag.setValue(toScene(g.dx, g.dy));
         }
       },
       onPanResponderRelease: (_e, g) => finish(g.dx, g.dy),
@@ -83,7 +88,8 @@ export default function PlacedSticker({ placed, sticker, sceneW, sceneH, selecte
       scale(p.uid, clamp(p.scale * pinchRatio.current, MIN_SCALE, MAX_SCALE));
     } else if (w > 0 && h > 0) {
       // Keep the sticker's center inside the scene
-      move(p.uid, clamp(p.x + dx / w, 0.02, 0.98), clamp(p.y + dy / h, 0.02, 0.98));
+      const d = toScene(dx, dy);
+      move(p.uid, clamp(p.x + d.x / w, 0.02, 0.98), clamp(p.y + d.y / h, 0.02, 0.98));
     }
     drag.setValue({ x: 0, y: 0 });
     pinch.setValue(1);
