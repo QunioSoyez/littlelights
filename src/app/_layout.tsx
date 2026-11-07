@@ -1,32 +1,26 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import MenuButton from "@/components/AppMenu";
 import { sections } from "@/constants/sections";
-import { colors } from "@/constants/theme";
+import { headerOptions } from "@/constants/headerOptions";
 
 // Keep Home underneath any screen opened directly (link or page reload), so there's a back arrow.
 export const unstable_settings = { initialRouteName: "index" };
+
+// Sections with their own inner stack (and their own headers)
+const nestedSections = ["bible", "games"];
 
 export default function RootLayout() {
   return (
     <>
       <StatusBar style="light" />
-      <Stack
-        screenOptions={{
-          headerStyle: { backgroundColor: colors.blue },
-          headerTintColor: colors.white,
-          headerTitleStyle: { fontWeight: "bold", fontSize: 22 },
-          headerRight: () => <MenuButton />, // hamburger menu on every screen
-          contentStyle: { backgroundColor: colors.cream },
-        }}
-      >
-        <Stack.Screen name="index" options={{ title: "Little Lights" }} />
+      <Stack screenOptions={headerOptions}>
+        {/* Home: no logo button on the left (you're already home) */}
+        <Stack.Screen name="index" options={{ title: "Little Lights", headerLeft: () => null }} />
         {sections.map((s) => (
           <Stack.Screen
             key={s.name}
             name={s.name}
-            // The Bible section has its own headers (story list -> story reader)
-            options={{ title: s.title, headerShown: s.name !== "bible" }}
+            options={{ title: s.title, headerShown: !nestedSections.includes(s.name) }}
           />
         ))}
         <Stack.Screen name="about" options={{ title: "About" }} />

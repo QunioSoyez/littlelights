@@ -6,7 +6,7 @@ import { colors, sizes } from "@/constants/theme";
 type Props = {
   href: Href;
   picture: ImageSource; // large scene picture
-  icon: ImageSource; // small round icon
+  icon?: ImageSource; // small round icon (optional)
   label: string;
   color: string;
 };
@@ -25,7 +25,7 @@ export default function HomeTile({ href, picture, icon, label, color }: Props) {
       >
         <Image source={picture} style={styles.picture} contentFit="cover" />
         <View style={[styles.labelBar, { backgroundColor: color }]}>
-          <Image source={icon} style={styles.icon} />
+          {icon && <Image source={icon} style={styles.icon} />}
           <Text style={styles.label} numberOfLines={1}>
             {label}
           </Text>
