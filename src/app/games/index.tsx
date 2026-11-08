@@ -1,12 +1,13 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import HomeTile from "@/components/HomeTile";
 import PatternBackground from "@/components/PatternBackground";
+import { coloringPages } from "@/content/coloringPages";
 import { puzzles } from "@/content/puzzles";
 import { scenes } from "@/content/scenes";
 import { colors, sectionColors } from "@/constants/theme";
 
 // Games still to come (shown as a "coming soon" list)
-const comingSoon = ["Story Mix-Up", "Memory Verse Scramble", "Coloring Book"];
+const comingSoon = ["Story Mix-Up", "Memory Verse Scramble"];
 
 export default function GamesList() {
   return (
@@ -24,6 +25,12 @@ export default function GamesList() {
             label="Puzzles"
             color={sectionColors.games}
             picture={puzzles[0].image}
+          />
+          <HomeTile
+            href="/games/coloring"
+            label="Coloring Book"
+            color={sectionColors.games}
+            picture={coloringPages[0].thumb}
           />
           <View style={styles.soon}>
             <Text style={styles.soonTitle}>Coming soon</Text>
