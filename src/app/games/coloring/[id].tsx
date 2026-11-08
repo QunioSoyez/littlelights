@@ -1,12 +1,13 @@
 import { Stack, useLocalSearchParams } from "expo-router";
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ComponentRef, type ReactNode } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import ColoringCanvas from "@/components/ColoringCanvas";
-import { CrossIcon, RecycleIcon, UndoIcon } from "@/components/Icons";
+import { CrossIcon, RecycleIcon, SaveIcon, UndoIcon } from "@/components/Icons";
 import LandscapeStage from "@/components/LandscapeStage";
 import PatternBackground from "@/components/PatternBackground";
 import { coloringPages, getColoringPage, type ColoringPage } from "@/content/coloringPages";
 import { colors, sectionColors } from "@/constants/theme";
+import { needsExportView, saveMessage, savePicture } from "@/lib/savePicture";
 
 // Pre-build one web page per coloring page (the web site uses static output)
 export function generateStaticParams(): { id: string }[] {
@@ -52,6 +53,9 @@ function Coloring({ page, width, height, rotated }: { page: ColoringPage; width:
   const [color, setColor] = useState(PALETTE[0]);
   const [fills, setFills] = useState<Record<number, string>>({});
   const [history, setHistory] = useState<Record<number, string>[]>([]); // for Undo
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const exportRef = useRef<ComponentRef<typeof View>>(null);
 
   // ---- sizes (worked out from the measured space) ----
   const compact = height < 520;
@@ -82,6 +86,22 @@ function Coloring({ page, width, height, rotated }: { page: ColoringPage; width:
     if (!history.length) return;
     setFills(history[history.length - 1]);
     setHistory((h) => h.slice(0, -1));
+  }
+
+  async function save() {
+    if (saving) return;
+    setSaving(true);
+    if (needsExportView) await new Promise((r) => setTimeout(r, 300)); // let the hidden copy draw
+    const result = await savePicture(page, fills, exportRef);
+    setSaving(false);
+    setMessage(
+      result === "saved"
+        ? saveMessage
+        : result === "denied"
+          ? "Ask a grown-up to allow saving to Photos in Settings."
+          : "Sorry, the picture couldn't be saved."
+    );
+    setTimeout(() => setMessage(null), 3000);
   }
 
   function startOver() {
@@ -119,6 +139,20 @@ function Coloring({ page, width, height, rotated }: { page: ColoringPage; width:
           >
             <CrossIcon size={swatch * 0.55} color="#D32F2F" />
           </Pressable>
+          <Pressable
+            onPress={save}
+            disabled={saving || !Object.keys(fills).length}
+            accessibilityRole="button"
+            accessibilityLabel="Save picture"
+            accessibilityState={{ disabled: saving || !Object.keys(fills).length }}
+            style={({ pressed }) => [
+              styles.swatch,
+              styles.saveTile,
+              { width: swatch, height: swatch, opacity: saving || !Object.keys(fills).length ? 0.4 : pressed ? 0.7 : 1 },
+            ]}
+          >
+            <SaveIcon size={swatch * 0.6} color={colors.blue} />
+          </Pressable>
 
           <View style={styles.actions}>
             <Action name="Undo" onPress={undo} disabled={!history.length} compact={compact}>
@@ -134,8 +168,22 @@ function Coloring({ page, width, height, rotated }: { page: ColoringPage; width:
       {/* ---- Right: the page ---- */}
       <View style={styles.right}>
         <View style={[styles.pageFrame, { padding: compact ? 3 : 5 }]}>
-          <ColoringCanvas page={page} width={pageW - (compact ? 6 : 10)} height={pageH - (compact ? 6 : 10)} rotated={rotated} fills={fills} onTap={tap} />
+          <ColoringCanvas
+            page={page}
+            width={pageW - (compact ? 6 : 10)}
+            height={pageH - (compact ? 6 : 10)}
+            rotated={rotated}
+            fills={fills}
+            onTap={tap}
+            exporting={saving && needsExportView}
+            exportRef={exportRef}
+          />
         </View>
+        {message && (
+          <View style={styles.toast} pointerEvents="none">
+            <Text style={[styles.toastText, { fontSize: compact ? 15 : 20 }]}>{message}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -172,6 +220,19 @@ const styles = StyleSheet.create({
   swatch: { borderRadius: 14, borderWidth: 3, borderColor: colors.white },
   swatchSelected: { borderColor: colors.text, borderWidth: 4, transform: [{ scale: 1.08 }] },
   eraser: { backgroundColor: colors.white, borderColor: "#CFCFCF", alignItems: "center", justifyContent: "center" },
+  saveTile: { backgroundColor: colors.white, borderColor: colors.blue, alignItems: "center", justifyContent: "center" },
+  toast: {
+    position: "absolute",
+    top: 16,
+    alignSelf: "center",
+    backgroundColor: colors.gold,
+    borderRadius: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderWidth: 2,
+    borderColor: colors.white,
+  },
+  toastText: { color: colors.blueDark, fontWeight: "bold", textAlign: "center" },
   actions: { width: "100%", flexDirection: "row", gap: 8, marginTop: 6 },
   action: { flex: 1, backgroundColor: sectionColors.games, borderRadius: 14, paddingVertical: 8, alignItems: "center", justifyContent: "center" },
   actionCompact: { borderRadius: 10, paddingVertical: 4 },

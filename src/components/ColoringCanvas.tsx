@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { useEffect, useMemo, useRef, useState, type ComponentRef } from "react";
+import { useEffect, useMemo, useRef, useState, type ComponentRef, type RefObject } from "react";
 import { PanResponder, Platform, Pressable, StyleSheet, Text, View, type GestureResponderEvent } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { toStage } from "@/components/LandscapeStage";
@@ -13,6 +13,8 @@ type Props = {
   rotated: boolean; // drawn sideways (phone held upright)
   fills: Record<number, string>; // area id -> color
   onTap: (areaId: number) => void;
+  exporting?: boolean; // phones: draw a hidden, un-zoomed copy for saving
+  exportRef?: RefObject<ComponentRef<typeof View> | null>;
 };
 
 const MAX_ZOOM = 4;
@@ -21,7 +23,7 @@ const TAP_SLOP = 10; // a finger moving less than this is a tap, not a drag
 // Coloring page: filled areas (SVG shapes) under the line art, plus touch handling:
 // tap = color an area, drag with one finger = move around when zoomed in,
 // pinch with two fingers = zoom. + / - / Fit buttons do the same for mouse users.
-export default function ColoringCanvas({ page, width, height, rotated, fills, onTap }: Props) {
+export default function ColoringCanvas({ page, width, height, rotated, fills, onTap, exporting, exportRef }: Props) {
   const { data } = page;
   const [view, setView] = useState({ scale: 1, x: 0, y: 0 });
 
@@ -134,6 +136,18 @@ export default function ColoringCanvas({ page, width, height, rotated, fills, on
 
   return (
     <View style={[styles.frame, { width, height }]}>
+      {/* Hidden copy for saving (phones): whole page, not zoomed. It sits under the visible
+          picture; a screen capture of just this view becomes the saved JPG. */}
+      {exporting && (
+        <View ref={exportRef} collapsable={false} pointerEvents="none" style={[StyleSheet.absoluteFill, styles.exportCopy]}>
+          <Svg width={width} height={height} viewBox={`0 0 ${data.width} ${data.height}`}>
+            {Object.entries(fills).map(([id, fill]) => (
+              <Path key={id} d={shapes[Number(id)]} fill={fill} fillRule="evenodd" />
+            ))}
+          </Svg>
+          <Image source={page.lines} style={StyleSheet.absoluteFill} contentFit="fill" />
+        </View>
+      )}
       <View
         pointerEvents="none"
         style={[
@@ -177,6 +191,7 @@ function ZoomButton({ label, onPress, name }: { label: string; onPress: () => vo
 
 const styles = StyleSheet.create({
   frame: { overflow: "hidden", backgroundColor: colors.white },
+  exportCopy: { backgroundColor: colors.white },
   zoom: { position: "absolute", right: 8, bottom: 8, flexDirection: "row", gap: 6 },
   zoomButton: {
     minWidth: 40,

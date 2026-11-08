@@ -52,3 +52,14 @@ export function CrossIcon({ size, color }: IconProps) {
     </Svg>
   );
 }
+
+// Floppy disk (save)
+export function SaveIcon({ size, color }: IconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h11l3.5 3.5v11a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z" stroke={color} strokeWidth={2} strokeLinejoin="round" />
+      <Path d="M8 4v5h7V4" stroke={color} strokeWidth={2} strokeLinejoin="round" />
+      <Path d="M7.5 20v-6h9v6" stroke={color} strokeWidth={2} strokeLinejoin="round" />
+    </Svg>
+  );
+}
