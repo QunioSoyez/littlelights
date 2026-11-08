@@ -2,6 +2,7 @@ import { Image } from "expo-image";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import LandscapeStage from "@/components/LandscapeStage";
 import PatternBackground from "@/components/PatternBackground";
 import PlacedSticker, { MAX_SCALE, MIN_SCALE, type Placed } from "@/components/PlacedSticker";
 import { getScene, scenes, type Scene } from "@/content/scenes";
@@ -12,15 +13,11 @@ export function generateStaticParams(): { id: string }[] {
   return scenes.map((s) => ({ id: s.id }));
 }
 
-// Build a Scene. Two layouts, picked by measuring the space under the header:
-// - Wide (PC, tablet, phone turned sideways): sticker panel on the left, scene on the right.
-// - Tall (phone held upright): the same layout drawn sideways - turned a quarter turn
-//   to the left - so kids turn the phone (top to the right) and get the whole length
-//   of the screen for the scene. The header stays where it is.
+// Build a Scene: sticker panel on the left, scene on the right.
+// LandscapeStage turns it sideways on phones held upright.
 export default function SceneBuilder() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const scene = getScene(id);
-  const [box, setBox] = useState<{ w: number; h: number } | null>(null);
 
   if (!scene) {
     return (
@@ -31,31 +28,12 @@ export default function SceneBuilder() {
     );
   }
 
-  const rotated = box ? box.h > box.w : false;
-
   return (
     <PatternBackground>
       <Stack.Screen options={{ title: scene.title }} />
-      <View style={styles.fill} onLayout={(e) => setBox({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height })}>
-        {box &&
-          (rotated ? (
-            // Swap width/height and turn a quarter turn left around the center
-            <View
-              style={{
-                position: "absolute",
-                width: box.h,
-                height: box.w,
-                left: (box.w - box.h) / 2,
-                top: (box.h - box.w) / 2,
-                transform: [{ rotate: "-90deg" }],
-              }}
-            >
-              <Builder scene={scene} width={box.h} height={box.w} rotated />
-            </View>
-          ) : (
-            <Builder scene={scene} width={box.w} height={box.h} rotated={false} />
-          ))}
-      </View>
+      <LandscapeStage>
+        {({ width, height, rotated }) => <Builder scene={scene} width={width} height={height} rotated={rotated} />}
+      </LandscapeStage>
     </PatternBackground>
   );
 }
@@ -215,9 +193,8 @@ function Tool({ label, onPress, disabled, danger, outline, compact }: ToolProps)
 }
 
 const styles = StyleSheet.create({
-  fill: { flex: 1, overflow: "hidden" },
   message: { fontSize: 20, textAlign: "center", marginTop: 40, color: colors.text },
-  builder: { flex: 1, flexDirection: "row" },
+  builder: { flex: 1, flexDirection: "row", userSelect: "none" }, // web: no blue highlight while dragging
   hint: { color: colors.text, textAlign: "center", marginBottom: 10 },
   panelScroll: { flex: 1 },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: 8, paddingRight: 16, paddingBottom: 12 },

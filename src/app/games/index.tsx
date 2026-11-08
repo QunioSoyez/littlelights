@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import HomeTile from "@/components/HomeTile";
 import PatternBackground from "@/components/PatternBackground";
+import { puzzles } from "@/content/puzzles";
 import { scenes } from "@/content/scenes";
 import { colors, sectionColors } from "@/constants/theme";
 
@@ -17,6 +18,12 @@ export default function GamesList() {
             label="Build a Scene"
             color={sectionColors.games}
             picture={scenes[0].background}
+          />
+          <HomeTile
+            href="/games/puzzles"
+            label="Puzzles"
+            color={sectionColors.games}
+            picture={puzzles[0].image}
           />
           <View style={styles.soon}>
             <Text style={styles.soonTitle}>Coming soon</Text>

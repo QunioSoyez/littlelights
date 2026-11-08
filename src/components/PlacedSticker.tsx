@@ -1,6 +1,7 @@
 import { Image } from "expo-image";
 import { useEffect, useRef } from "react";
 import { Animated, PanResponder, StyleSheet, type GestureResponderEvent } from "react-native";
+import { toStage } from "@/components/LandscapeStage";
 import type { SceneSticker } from "@/content/scenes";
 import { colors } from "@/constants/theme";
 
@@ -47,9 +48,8 @@ export default function PlacedSticker({ placed, sticker, sceneW, sceneH, selecte
     latest.current = { placed, sceneW, sceneH, rotated, onSelect, onMove, onScale };
   });
 
-  // Finger movement is measured on the glass. When the builder is drawn sideways
-  // (turned a quarter turn left), "up" on the glass is "left" in the scene.
-  const toScene = (dx: number, dy: number) => (latest.current.rotated ? { x: -dy, y: dx } : { x: dx, y: dy });
+  // Finger movement is measured on the glass; turn it to match a sideways builder
+  const toScene = (dx: number, dy: number) => toStage(dx, dy, latest.current.rotated);
 
   const pinchStart = useRef<number | null>(null);
   const pinchRatio = useRef(1);
