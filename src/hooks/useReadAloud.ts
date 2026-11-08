@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 //
 // - playAll(): read every paragraph from the start (or keep going after Pause)
 // - playOne(i): read just paragraph i
+// - playRange(from, to): read paragraphs from..to (e.g. one prayer out of several)
 // - pause(): stop and remember the place, so playAll() continues from there
 // - stop(): stop and forget the place
 //
@@ -14,7 +15,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export type ReadAloudState = {
   status: "idle" | "playing" | "paused";
-  mode: "all" | "one";
+  mode: "all" | "one" | "range";
+  range?: { from: number; to: number }; // set when mode is "range"
   paragraph: number | null; // paragraph being read (for highlighting)
 };
 
@@ -38,10 +40,15 @@ export function useReadAloud(paragraphs: string[]) {
   const sentences = useRef<string[][]>([]);
   sentences.current = paragraphs.map(splitSentences);
 
-  const speakFrom = useCallback((mode: "all" | "one", paragraph: number, sentence: number) => {
+  // Last paragraph to read before stopping (inclusive)
+  const endAt = useRef(Number.MAX_SAFE_INTEGER);
+
+  const speakFrom = useCallback((mode: ReadAloudState["mode"], paragraph: number, sentence: number, end?: number) => {
     const run = ++runId.current;
     pos.current = { paragraph, sentence };
-    setState({ status: "playing", mode, paragraph });
+    endAt.current = end ?? Number.MAX_SAFE_INTEGER;
+    const range = mode === "range" ? { from: paragraph, to: endAt.current } : undefined;
+    setState({ status: "playing", mode, paragraph, range });
 
     const step = () => {
       if (run !== runId.current) return; // stopped or restarted meanwhile
@@ -54,13 +61,14 @@ export function useReadAloud(paragraphs: string[]) {
           s = 0;
         }
       }
+      if (p > endAt.current) p = sentences.current.length; // past the end of the range: finish
       if (p >= sentences.current.length) {
         pos.current = { paragraph: 0, sentence: 0 };
         setState({ status: "idle", mode, paragraph: null });
         return;
       }
       pos.current = { paragraph: p, sentence: s };
-      setState({ status: "playing", mode, paragraph: p });
+      setState({ status: "playing", mode, paragraph: p, range });
       Speech.speak(sentences.current[p][s], {
         ...VOICE_OPTIONS,
         onDone: () => {
@@ -96,6 +104,14 @@ export function useReadAloud(paragraphs: string[]) {
     [speakFrom]
   );
 
+  const playRange = useCallback(
+    (from: number, to: number) => {
+      Speech.stop();
+      speakFrom("range", from, 0, to);
+    },
+    [speakFrom]
+  );
+
   const pause = useCallback(() => {
     runId.current++; // ignore the stopped speech's callbacks
     Speech.stop();
@@ -119,5 +135,5 @@ export function useReadAloud(paragraphs: string[]) {
     };
   }, [paragraphs]);
 
-  return { state, playAll, playOne, pause, stop };
+  return { state, playAll, playOne, playRange, pause, stop };
 }

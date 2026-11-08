@@ -7,7 +7,7 @@ import { headerOptions } from "@/constants/headerOptions";
 export const unstable_settings = { initialRouteName: "index" };
 
 // Sections with their own inner stack (and their own headers)
-const nestedSections = ["bible", "games"];
+const nestedSections = ["bible", "games", "prayer"];
 
 export default function RootLayout() {
   return (

@@ -1,0 +1,200 @@
+{
+  "_about": "Family Prayer content. Edit freely: each topic has a title, an emoji, a color, an optional 'together' idea for families, and one or more prayers. Each prayer is a title plus lines (each line is read and highlighted on its own). All prayers are original to Little Lights except the traditional mealtime prayer 'God is great' and the Lord's Prayer (King James Version); both are public domain.",
+  "topics": [
+    {
+      "id": "morning",
+      "title": "Good Morning",
+      "emoji": "☀️",
+      "color": "#F5A623",
+      "together": "Before school or play, take turns saying one thing you're looking forward to today.",
+      "prayers": [
+        {
+          "title": "A New Day",
+          "lines": [
+            "Good morning, God!",
+            "Thank you for this brand-new day.",
+            "Thank you for keeping me safe while I slept.",
+            "Help me to be kind and to listen well.",
+            "Help me shine your light everywhere I go.",
+            "In Jesus' name, Amen."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mealtime",
+      "title": "Mealtime",
+      "emoji": "🍞",
+      "color": "#D9822B",
+      "together": "Hold hands around the table and let a different person pray each meal.",
+      "prayers": [
+        {
+          "title": "Thank You for Our Food",
+          "lines": [
+            "Thank you, God, for this good food.",
+            "Thank you for the hands that made it.",
+            "Please bless our family as we eat together,",
+            "and help us share with those who are hungry.",
+            "Amen."
+          ]
+        },
+        {
+          "title": "God Is Great (traditional)",
+          "lines": [
+            "God is great, God is good,",
+            "Let us thank Him for our food.",
+            "Amen."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedtime",
+      "title": "Bedtime",
+      "emoji": "🌙",
+      "color": "#3949AB",
+      "together": "At bedtime, share your favorite part of the day and one thing that was hard.",
+      "prayers": [
+        {
+          "title": "Goodnight, God",
+          "lines": [
+            "Dear God, thank you for today.",
+            "Thank you for my family and my friends.",
+            "Please forgive me for anything I did wrong today.",
+            "Watch over me while I sleep,",
+            "and give me sweet dreams.",
+            "I love you, God. Amen."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thank-you",
+      "title": "Thank You, God",
+      "emoji": "💛",
+      "color": "#E0A800",
+      "together": "Go around the room and name three things you're thankful for. Then add them to the Thank-You Journal!",
+      "prayers": [
+        {
+          "title": "So Many Gifts",
+          "lines": [
+            "Thank you, God, for the sun and the rain,",
+            "for flowers and trees and animals too.",
+            "Thank you for my family who loves me,",
+            "and thank you most of all for Jesus.",
+            "Amen."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sorry",
+      "title": "I'm Sorry",
+      "emoji": "🤍",
+      "color": "#7A4FB5",
+      "together": "Saying sorry is brave. Grown-ups, share a time you said sorry and were forgiven.",
+      "prayers": [
+        {
+          "title": "Help Me Do Better",
+          "lines": [
+            "Dear God, I'm sorry for the wrong things I did today.",
+            "Please forgive me, like you always do.",
+            "Help me to say sorry to anyone I hurt.",
+            "Help me to forgive others too.",
+            "Thank you for loving me no matter what.",
+            "Amen."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "help",
+      "title": "Help Me",
+      "emoji": "🤝",
+      "color": "#2E9E6A",
+      "together": "Ask each other: is anything worrying you? Pray about it together.",
+      "prayers": [
+        {
+          "title": "When I'm Scared",
+          "lines": [
+            "Dear God, sometimes I feel scared.",
+            "Thank you that you are always with me.",
+            "Help me to remember that you are bigger than anything.",
+            "Please give me peace and courage.",
+            "Amen."
+          ]
+        },
+        {
+          "title": "When Things Are Hard",
+          "lines": [
+            "Dear God, today something is hard for me.",
+            "Please help me to keep trying.",
+            "Help me to be patient and to ask for help when I need it.",
+            "Thank you for always listening to me.",
+            "Amen."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "others",
+      "title": "Praying for Others",
+      "emoji": "🌍",
+      "color": "#1E88E5",
+      "together": "Pick one person each day to pray for: a friend, a neighbor, a teacher or someone far away.",
+      "prayers": [
+        {
+          "title": "For My Family",
+          "lines": [
+            "Dear God, please bless my family.",
+            "Keep us safe and help us love each other.",
+            "Help us to be kind, to share, and to forgive.",
+            "Amen."
+          ]
+        },
+        {
+          "title": "For Someone Who Is Sick",
+          "lines": [
+            "Dear God, someone I love is sick.",
+            "Please help them feel better soon.",
+            "Give the doctors and nurses wisdom,",
+            "and let them know that you are with them.",
+            "Amen."
+          ]
+        },
+        {
+          "title": "For People Everywhere",
+          "lines": [
+            "Dear God, please be with children all around the world.",
+            "Help those who are hungry, lonely or afraid.",
+            "Show me how I can help too.",
+            "Amen."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lords-prayer",
+      "title": "The Lord's Prayer",
+      "emoji": "📖",
+      "color": "#114C88",
+      "together": "This is the prayer Jesus taught His friends. Try learning it together, one line at a time.",
+      "prayers": [
+        {
+          "title": "The Lord's Prayer (Matthew 6:9-13, KJV)",
+          "lines": [
+            "Our Father which art in heaven,",
+            "Hallowed be thy name.",
+            "Thy kingdom come.",
+            "Thy will be done in earth, as it is in heaven.",
+            "Give us this day our daily bread.",
+            "And forgive us our debts, as we forgive our debtors.",
+            "And lead us not into temptation, but deliver us from evil:",
+            "For thine is the kingdom, and the power, and the glory, for ever.",
+            "Amen."
+          ]
+        }
+      ]
+    }
+  ]
+}
