@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import PatternBackground from "@/components/PatternBackground";
 import { colors, sectionColors } from "@/constants/theme";
 import { loadEntries, saveEntries, type JournalEntry } from "@/lib/journal";
@@ -169,6 +169,11 @@ export default function Journal() {
           ))}
 
           <Text style={styles.privacy}>Your journal stays on this device. Nobody else can see it.</Text>
+          <Text style={styles.privacy}>
+            {Platform.OS === "web"
+              ? "Grown-ups: entries are saved in this web browser. Clearing browsing history or site data, or using a private window, will erase them."
+              : "Grown-ups: deleting the app or clearing its storage will erase journal entries."}
+          </Text>
         </View>
       </ScrollView>
     </PatternBackground>
