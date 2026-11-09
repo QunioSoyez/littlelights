@@ -1,0 +1,17 @@
+{
+  "_about": "Memory Verse Scramble. Verses from the World English Bible (WEB, public domain). Easy verses are split into single words. Harder verses are split into phrases at each ' / '. Keep the wording exactly as in the WEB.",
+  "verses": [
+    { "id": "god-is-love", "level": "easy", "ref": "1 John 4:8", "text": "God is love." },
+    { "id": "pray-without-ceasing", "level": "easy", "ref": "1 Thessalonians 5:17", "text": "Pray without ceasing." },
+    { "id": "with-you-always", "level": "easy", "ref": "Matthew 28:20", "text": "I am with you always." },
+    { "id": "be-kind", "level": "easy", "ref": "Ephesians 4:32", "text": "Be kind to one another." },
+    { "id": "light-of-the-world", "level": "easy", "ref": "Matthew 5:14", "text": "You are the light of the world." },
+    { "id": "he-first-loved-us", "level": "easy", "ref": "1 John 4:19", "text": "We love him, because he first loved us." },
+    { "id": "all-things-through-christ", "level": "easy", "ref": "Philippians 4:13", "text": "I can do all things through Christ, who strengthens me." },
+    { "id": "when-i-am-afraid", "level": "easy", "ref": "Psalm 56:3", "text": "When I am afraid, I will put my trust in you." },
+    { "id": "lamp-to-my-feet", "level": "harder", "ref": "Psalm 119:105", "text": "Your word is a lamp / to my feet, / and a light / for my path." },
+    { "id": "love-one-another", "level": "harder", "ref": "John 15:12", "text": "This is my commandment, / that you love one another, / even as / I have loved you." },
+    { "id": "little-children", "level": "harder", "ref": "Matthew 19:14", "text": "Allow the little children, / and don’t forbid them / to come to me; / for the Kingdom of Heaven / belongs to ones like these." },
+    { "id": "god-so-loved", "level": "harder", "ref": "John 3:16", "text": "For God so loved the world, / that he gave / his one and only Son, / that whoever believes in him / should not perish, / but have eternal life." }
+  ]
+}

@@ -7,8 +7,8 @@ import { puzzles } from "@/content/puzzles";
 import { scenes } from "@/content/scenes";
 import { colors, sectionColors } from "@/constants/theme";
 
-// Games still to come (shown as a "coming soon" list)
-const comingSoon = ["Memory Verse Scramble"];
+// Games still to come (shown as a "coming soon" list; hidden when empty)
+const comingSoon: string[] = [];
 
 export default function GamesList() {
   return (
@@ -39,14 +39,22 @@ export default function GamesList() {
             color={sectionColors.games}
             picture={lathburyImages.img_016} // Noah and the dove (bright Lathbury picture)
           />
-          <View style={styles.soon}>
-            <Text style={styles.soonTitle}>Coming soon</Text>
-            {comingSoon.map((g) => (
-              <Text key={g} style={styles.soonItem}>
-                • {g}
-              </Text>
-            ))}
-          </View>
+          <HomeTile
+            href="/games/verses"
+            label="Memory Verse Scramble"
+            color={sectionColors.games}
+            picture={require("../../../assets/images/verse-scramble.jpg")}
+          />
+          {comingSoon.length > 0 && (
+            <View style={styles.soon}>
+              <Text style={styles.soonTitle}>Coming soon</Text>
+              {comingSoon.map((g) => (
+                <Text key={g} style={styles.soonItem}>
+                  • {g}
+                </Text>
+              ))}
+            </View>
+          )}
         </View>
       </ScrollView>
     </PatternBackground>

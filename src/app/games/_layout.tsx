@@ -4,7 +4,7 @@ import { headerOptions } from "@/constants/headerOptions";
 // Keep the games list underneath, so a game opened directly still has a back arrow.
 export const unstable_settings = { initialRouteName: "index" };
 
-// Games: games list -> Build a Scene (pick a scene -> builder) / Puzzles (pick a puzzle -> puzzle) / Coloring Book (pick a page -> color) / Story Mix-Up (pick a round -> play)
+// Games: games list -> Build a Scene (pick a scene -> builder) / Puzzles (pick a puzzle -> puzzle) / Coloring Book (pick a page -> color) / Story Mix-Up (pick a round -> play) / Verse Scramble (pick a verse -> play)
 export default function GamesLayout() {
   return (
     <Stack screenOptions={headerOptions}>
@@ -17,6 +17,8 @@ export default function GamesLayout() {
       <Stack.Screen name="coloring/[id]" options={{ title: "Coloring Book" }} />
       <Stack.Screen name="mixup/index" options={{ title: "Story Mix-Up" }} />
       <Stack.Screen name="mixup/[id]" options={{ title: "Story Mix-Up" }} />
+      <Stack.Screen name="verses/index" options={{ title: "Verse Scramble" }} />
+      <Stack.Screen name="verses/[id]" options={{ title: "Verse Scramble" }} />
     </Stack>
   );
 }
