@@ -4,7 +4,7 @@
     {
       "id": "morning",
       "title": "Good Morning",
-      "emoji": "☀️",
+      "icon": "sun",
       "color": "#F5A623",
       "together": "Before school or play, take turns saying one thing you're looking forward to today.",
       "prayers": [
@@ -24,7 +24,7 @@
     {
       "id": "mealtime",
       "title": "Mealtime",
-      "emoji": "🍞",
+      "icon": "apple",
       "color": "#D9822B",
       "together": "Hold hands around the table and let a different person pray each meal.",
       "prayers": [
@@ -51,7 +51,7 @@
     {
       "id": "bedtime",
       "title": "Bedtime",
-      "emoji": "🌙",
+      "icon": "moon",
       "color": "#3949AB",
       "together": "At bedtime, share your favorite part of the day and one thing that was hard.",
       "prayers": [
@@ -71,7 +71,7 @@
     {
       "id": "thank-you",
       "title": "Thank You, God",
-      "emoji": "💛",
+      "icon": "heart",
       "color": "#E0A800",
       "together": "Go around the room and name three things you're thankful for. Then add them to the Thank-You Journal!",
       "prayers": [
@@ -90,7 +90,7 @@
     {
       "id": "sorry",
       "title": "I'm Sorry",
-      "emoji": "🤍",
+      "icon": "face-slightly-frowning",
       "color": "#7A4FB5",
       "together": "Saying sorry is brave. Grown-ups, share a time you said sorry and were forgiven.",
       "prayers": [
@@ -110,7 +110,7 @@
     {
       "id": "help",
       "title": "Help Me",
-      "emoji": "🤝",
+      "icon": "handshake",
       "color": "#2E9E6A",
       "together": "Ask each other: is anything worrying you? Pray about it together.",
       "prayers": [
@@ -139,7 +139,7 @@
     {
       "id": "others",
       "title": "Praying for Others",
-      "emoji": "🌍",
+      "icon": "hands-praying",
       "color": "#1E88E5",
       "together": "Pick one person each day to pray for: a friend, a neighbor, a teacher or someone far away.",
       "prayers": [
@@ -176,7 +176,7 @@
     {
       "id": "lords-prayer",
       "title": "The Lord's Prayer",
-      "emoji": "📖",
+      "icon": "bible",
       "color": "#114C88",
       "together": "This is the prayer Jesus taught His friends. Try learning it together, one line at a time.",
       "prayers": [

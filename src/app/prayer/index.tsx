@@ -1,7 +1,9 @@
 import { router } from "expo-router";
+import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import PatternBackground from "@/components/PatternBackground";
-import { prayerTopics } from "@/content/prayers";
+import PulsoIcon from "@/components/PulsoIcon";
+import { prayerTopics, type PrayerTopic } from "@/content/prayers";
 import { colors } from "@/constants/theme";
 
 // Family Prayer: pick a topic
@@ -12,22 +14,37 @@ export default function PrayerTopics() {
         <View style={styles.column}>
           <Text style={styles.intro}>What would you like to talk to God about?</Text>
           <View style={styles.grid}>
-            {prayerTopics.map((t) => (
-              <Pressable
-                key={t.id}
-                onPress={() => router.push(`/prayer/${t.id}`)}
-                accessibilityRole="link"
-                accessibilityLabel={t.title}
-                style={({ pressed }) => [styles.tile, { backgroundColor: t.color, opacity: pressed ? 0.85 : 1 }]}
-              >
-                <Text style={styles.emoji}>{t.emoji}</Text>
-                <Text style={styles.title}>{t.title}</Text>
-              </Pressable>
+            {prayerTopics.map((t, i) => (
+              <PrayerTile key={t.id} topic={t} index={i} />
             ))}
           </View>
         </View>
       </ScrollView>
     </PatternBackground>
+  );
+}
+
+// One topic tile. The icon plays its animation once when the page opens (one after
+// another), and again on hover (web) or touch.
+function PrayerTile({ topic, index }: { topic: PrayerTopic; index: number }) {
+  const [playKey, setPlayKey] = useState(0);
+  useEffect(() => {
+    const timer = setTimeout(() => setPlayKey((k) => k + 1), 300 + index * 150);
+    return () => clearTimeout(timer);
+  }, [index]);
+  const play = () => setPlayKey((k) => k + 1);
+  return (
+    <Pressable
+      onPress={() => router.push(`/prayer/${topic.id}`)}
+      onHoverIn={play}
+      onPressIn={play}
+      accessibilityRole="link"
+      accessibilityLabel={topic.title}
+      style={({ pressed }) => [styles.tile, { backgroundColor: topic.color, opacity: pressed ? 0.85 : 1 }]}
+    >
+      <PulsoIcon name={topic.icon} size={52} color="#FFFFFF" strokeWidth={1.8} playKey={playKey} />
+      <Text style={styles.title}>{topic.title}</Text>
+    </Pressable>
   );
 }
 
@@ -59,6 +76,5 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     elevation: 4,
   },
-  emoji: { fontSize: 42 },
   title: { fontSize: 20, fontWeight: "bold", color: colors.white, textAlign: "center" },
 });

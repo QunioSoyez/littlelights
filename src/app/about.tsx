@@ -69,6 +69,10 @@ export default function About() {
               </P>
               <P>Additional illustrations were created for Little Lights.</P>
               <P>Scripture on the home screen: King James Version (public domain).</P>
+            <P>
+              Family Prayer icons: PulsoIcon by CityPulso (ISC License), based on Lucide (ISC), Phosphor Icons (MIT)
+              and Tabler Icons (MIT). Full license text: littlelights.live/licenses/pulsoicon-LICENSE.txt
+            </P>
               <P>
                 The Little Lights name and logo © {YEAR} Mission CTRL. The app's source code is released under the MIT
                 License: github.com/QunioSoyez/littlelights

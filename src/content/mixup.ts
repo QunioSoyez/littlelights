@@ -12,6 +12,12 @@ export type MixupRound = {
 };
 
 export const mixupRounds: MixupRound[] = [
+  { id: "creation", title: "The Story of Creation", level: "easy", stories: ["ot-01"], cards: [
+    { label: "God creates light", image: require("../../assets/mixup/creation-1.jpg") },
+    { label: "God creates Earth", image: require("../../assets/mixup/creation-2.jpg") },
+    { label: "God creates animals", image: require("../../assets/mixup/creation-3.jpg") },
+    { label: "God creates Adam and Eve", image: require("../../assets/mixup/creation-4.jpg") },
+  ] },
   { id: "noah", title: "Noah", level: "easy", stories: ["ot-02"], cards: [
     { label: "Noah builds the ark", image: require("../../assets/mixup/noah-1.jpg") },
     { label: "Animals go in two by two", image: require("../../assets/mixup/noah-2.jpg") },
@@ -41,12 +47,6 @@ export const mixupRounds: MixupRound[] = [
     { label: "Jesus sleeps in the boat", image: require("../../assets/mixup/jesus-calms-the-storm-1.jpg") },
     { label: "A big storm comes", image: require("../../assets/mixup/jesus-calms-the-storm-2.jpg") },
     { label: "Jesus says, \"Be still!\"", image: require("../../assets/mixup/jesus-calms-the-storm-3.jpg") },
-  ] },
-  { id: "big-story", title: "The Big Story", level: "harder", stories: ["ot-02", "ot-09", "ot-19", "nt-01"], cards: [
-    { label: "Noah sees the dove", image: require("../../assets/mixup/big-story-1.jpg") },
-    { label: "Baby Moses is found", image: require("../../assets/mixup/big-story-2.jpg") },
-    { label: "David the shepherd boy", image: require("../../assets/mixup/big-story-3.jpg") },
-    { label: "Jesus is born", image: require("../../assets/mixup/big-story-4.jpg") },
   ] },
   { id: "joseph", title: "Joseph", level: "harder", stories: ["ot-06", "ot-07", "ot-08"], cards: [
     { label: "Joseph is sold by his brothers", image: require("../../assets/mixup/joseph-1.jpg") },
