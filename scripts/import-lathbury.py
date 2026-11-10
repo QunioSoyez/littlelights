@@ -13,6 +13,11 @@ Creates:
 Extra pictures for stories with none in the book are listed in
 scripts/lathbury-extras.json (caption + file). Missing files are skipped.
 
+New art for book pictures: save it as sources/story-art/<picture>.jpg (e.g. img_015.jpg) and it is
+used instead of the book's picture (same caption). Each run also rebuilds
+sources/story-art/_checklist.html: every black-and-white book picture, its story and caption, and
+whether new art is in yet.
+
 Needs Python 3 with Pillow (pip install pillow). Safe to re-run.
 """
 import html
@@ -21,7 +26,7 @@ import os
 import re
 import sys
 
-from PIL import Image
+from PIL import Image, ImageStat
 
 MAX_WIDTH = 900  # pixels; keeps the app small but sharp on tablets
 QUALITY = 80
@@ -109,12 +114,29 @@ for story in stories:
     extra_paths[key] = path
     images_used.append((key, path))
 
+# New art that replaces book pictures: sources/story-art/<key>.jpg (or .png)
+art_dir = os.path.join(sources_dir, "story-art")
+os.makedirs(art_dir, exist_ok=True)
+
+
+def story_art(key):
+    for ext in (".jpg", ".jpeg", ".png"):
+        path = os.path.join(art_dir, key + ext)
+        if os.path.exists(path):
+            return path
+    return None
+
+
 # Resize pictures into the app, and remember their sizes so the reader can
 # reserve the right space for each picture before it loads
 sizes = {}
+replaced = []
 for key, file in images_used:
     dest = os.path.join(out_img_dir, key + ".jpg")
-    im = Image.open(extra_paths.get(key) or os.path.join(src_dir, "images", file)).convert("RGB")
+    new_art = story_art(key) if key not in extra_paths else None
+    if new_art:
+        replaced.append(key)
+    im = Image.open(new_art or extra_paths.get(key) or os.path.join(src_dir, "images", file)).convert("RGB")
     if im.width > MAX_WIDTH:
         im = im.resize((MAX_WIDTH, round(im.height * MAX_WIDTH / im.width)), Image.LANCZOS)
     im.save(dest, quality=QUALITY, optimize=True, progressive=True)
@@ -150,3 +172,47 @@ missing = [s["id"] for s in stories if not s["thumbnail"]]
 print(f"Stories: {len(stories)} ({ot} Old Testament, {len(stories) - ot} New Testament)")
 print(f"Pictures: {len(set(images_used))} ({len(extra_paths)} extra)")
 print(f"Stories still without a picture: {len(missing)}")
+
+
+# ---- Checklist of black-and-white book pictures (sources/story-art/_checklist.html) ----
+def is_black_and_white(path):
+    im = Image.open(path).convert("HSV")
+    im.thumbnail((200, 200))
+    return ImageStat.Stat(im.split()[1]).mean[0] < 40  # average color saturation (0 = gray)
+
+
+rows = []
+for story in stories:
+    for block in story["blocks"]:
+        key = block.get("image")
+        if block["type"] != "image" or key in extra_paths:
+            continue
+        original = os.path.join(src_dir, "images", dict(images_used)[key])
+        if not is_black_and_white(original):
+            continue
+        rows.append((story, key, block["caption"], story_art(key) is not None))
+
+done = sum(1 for r in rows if r[3])
+html = [
+    "<!doctype html><meta charset='utf-8'><title>Story art checklist</title>",
+    "<style>body{font-family:system-ui,sans-serif;margin:24px;color:#1f2a37}table{border-collapse:collapse;width:100%}",
+    "td,th{border-bottom:1px solid #ddd;padding:8px;text-align:left;vertical-align:middle}img{height:110px;border-radius:6px}",
+    ".done{color:#2e9e6a;font-weight:bold}.todo{color:#c0392b}code{background:#f4eee0;padding:2px 6px;border-radius:4px;font-size:15px}</style>",
+    "<h1>Black-and-white story pictures to replace</h1>",
+    f"<p><b>{done} of {len(rows)} done.</b> Save each new picture in this folder (<code>sources\\story-art</code>) with the "
+    "name shown, 900 x 1160 upright (any size works; wider than 900 is shrunk). Keep the same subject so the caption still fits. "
+    "Then run <code>python scripts/import-lathbury.py ../sources/lathbury/25309-h</code> from the app folder. "
+    "This page is rebuilt each time.</p>",
+    "<table><tr><th>Status</th><th>Now in the app</th><th>Story</th><th>Caption</th><th>Save as</th></tr>",
+]
+for story, key, caption, is_done in rows:
+    status = "<span class='done'>&#10003; done</span>" if is_done else "<span class='todo'>to do</span>"
+    html.append(
+        f"<tr><td>{status}</td><td><img src='../../littlelights_app/assets/stories/{key}.jpg'></td>"
+        f"<td><b>{story['id']}</b><br>{story['title']}</td><td>{caption}</td><td><code>{key}.jpg</code></td></tr>"
+    )
+html.append("</table>")
+with open(os.path.join(art_dir, "_checklist.html"), "w", encoding="utf-8") as f:
+    f.write("\n".join(html))
+print(f"New story art: {len(replaced)} picture(s) replaced. Black-and-white pictures: {done} of {len(rows)} done "
+      f"(see sources/story-art/_checklist.html)")
