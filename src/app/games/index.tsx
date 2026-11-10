@@ -2,7 +2,6 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import HomeTile from "@/components/HomeTile";
 import PatternBackground from "@/components/PatternBackground";
 import { coloringPages } from "@/content/coloringPages";
-import { lathburyImages } from "@/content/lathburyImages";
 import { puzzles } from "@/content/puzzles";
 import { scenes } from "@/content/scenes";
 import { colors, sectionColors } from "@/constants/theme";
@@ -37,7 +36,7 @@ export default function GamesList() {
             href="/games/mixup"
             label="Story Mix-Up"
             color={sectionColors.games}
-            picture={lathburyImages.img_016} // Noah and the dove (bright Lathbury picture)
+            picture={require("../../../assets/images/story-mixup.jpg")} // Jonah and the big fish (strip from sources/mixup/jonah/2.jpg)
           />
           <HomeTile
             href="/games/verses"

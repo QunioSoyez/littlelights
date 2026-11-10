@@ -25,8 +25,8 @@ from PIL import Image
 
 # Shown in this order (easy rounds first, then harder ones); rounds not listed follow A-Z
 ROUND_ORDER = [
-    "creation", "noah", "jonah", "david-and-goliath", "daniel", "jesus-is-born", "jesus-calms-the-storm",
-    "joseph", "moses", "david", "young-jesus", "jesus-helps", "easter",
+    "creation", "noah", "jonah", "daniel", "jesus-is-born",
+    "joseph", "moses", "david", "young-jesus", "easter",
 ]
 CARD_W, CARD_H = 450, 600  # size used in the app (cards show at most ~220 px wide)
 

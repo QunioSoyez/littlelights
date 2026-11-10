@@ -28,25 +28,15 @@ export const mixupRounds: MixupRound[] = [
     { label: "A big fish swallows Jonah", image: require("../../assets/mixup/jonah-2.jpg") },
     { label: "Jonah tells Nineveh about God", image: require("../../assets/mixup/jonah-3.jpg") },
   ] },
-  { id: "david-and-goliath", title: "David and Goliath", level: "easy", stories: ["ot-20"], cards: [
-    { label: "David the shepherd boy", image: require("../../assets/mixup/david-and-goliath-1.jpg") },
-    { label: "David uses his sling", image: require("../../assets/mixup/david-and-goliath-2.jpg") },
-    { label: "Goliath falls down", image: require("../../assets/mixup/david-and-goliath-3.jpg") },
-  ] },
   { id: "daniel", title: "Daniel and the Lions", level: "easy", stories: ["ot-32"], cards: [
     { label: "Daniel prays to God", image: require("../../assets/mixup/daniel-1.jpg") },
     { label: "Daniel in the lions' den", image: require("../../assets/mixup/daniel-2.jpg") },
     { label: "God keeps Daniel safe", image: require("../../assets/mixup/daniel-3.jpg") },
   ] },
-  { id: "jesus-is-born", title: "Jesus Is Born", level: "easy", stories: ["nt-01"], cards: [
+  { id: "jesus-is-born", title: "Jesus Is Born", level: "easy", stories: ["nt-01", "nt-02"], cards: [
     { label: "Mary and Joseph go to Bethlehem", image: require("../../assets/mixup/jesus-is-born-1.jpg") },
     { label: "Baby Jesus in the manger", image: require("../../assets/mixup/jesus-is-born-2.jpg") },
-    { label: "Shepherds visit baby Jesus", image: require("../../assets/mixup/jesus-is-born-3.jpg") },
-  ] },
-  { id: "jesus-calms-the-storm", title: "Jesus Calms the Storm", level: "easy", stories: ["nt-21"], cards: [
-    { label: "Jesus sleeps in the boat", image: require("../../assets/mixup/jesus-calms-the-storm-1.jpg") },
-    { label: "A big storm comes", image: require("../../assets/mixup/jesus-calms-the-storm-2.jpg") },
-    { label: "Jesus says, \"Be still!\"", image: require("../../assets/mixup/jesus-calms-the-storm-3.jpg") },
+    { label: "The angel visits the wise men", image: require("../../assets/mixup/jesus-is-born-3.jpg") },
   ] },
   { id: "joseph", title: "Joseph", level: "harder", stories: ["ot-06", "ot-07", "ot-08"], cards: [
     { label: "Joseph is sold by his brothers", image: require("../../assets/mixup/joseph-1.jpg") },
@@ -64,16 +54,11 @@ export const mixupRounds: MixupRound[] = [
     { label: "David and Goliath", image: require("../../assets/mixup/david-2.jpg") },
     { label: "King David", image: require("../../assets/mixup/david-3.jpg") },
   ] },
-  { id: "young-jesus", title: "Young Jesus", level: "harder", stories: ["nt-01", "nt-02", "nt-03", "nt-04"], cards: [
+  { id: "young-jesus", title: "The Life of Jesus", level: "harder", stories: ["nt-01", "nt-05", "nt-08", "nt-43"], cards: [
     { label: "Jesus in the manger", image: require("../../assets/mixup/young-jesus-1.jpg") },
-    { label: "The wise men follow the star", image: require("../../assets/mixup/young-jesus-2.jpg") },
-    { label: "The trip to Egypt", image: require("../../assets/mixup/young-jesus-3.jpg") },
-    { label: "Boy Jesus in the temple", image: require("../../assets/mixup/young-jesus-4.jpg") },
-  ] },
-  { id: "jesus-helps", title: "Jesus Teaches and Helps", level: "harder", stories: ["nt-06", "nt-09", "nt-21"], cards: [
-    { label: "John baptizes by the river", image: require("../../assets/mixup/jesus-helps-1.jpg") },
-    { label: "Water into wine", image: require("../../assets/mixup/jesus-helps-2.jpg") },
-    { label: "Jesus calms the storm", image: require("../../assets/mixup/jesus-helps-3.jpg") },
+    { label: "Jesus as a young carpenter", image: require("../../assets/mixup/young-jesus-2.jpg") },
+    { label: "Jesus and his disciples", image: require("../../assets/mixup/young-jesus-3.jpg") },
+    { label: "He died for our sins", image: require("../../assets/mixup/young-jesus-4.jpg") },
   ] },
   { id: "easter", title: "Easter", level: "harder", stories: ["nt-34", "nt-39", "nt-44", "nt-47"], cards: [
     { label: "Jesus rides into Jerusalem", image: require("../../assets/mixup/easter-1.jpg") },
