@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { sections } from "@/constants/sections";
 import { headerOptions } from "@/constants/headerOptions";
+import SideAd from "@/components/SideAd";
 
 // Keep Home underneath any screen opened directly (link or page reload), so there's a back arrow.
 export const unstable_settings = { initialRouteName: "index" };
@@ -25,6 +26,8 @@ export default function RootLayout() {
         ))}
         <Stack.Screen name="about" options={{ title: "About" }} />
       </Stack>
+      {/* Desktop-only vertical ad on listed pages (web only; see SideAd.web.tsx) */}
+      <SideAd />
     </>
   );
 }
