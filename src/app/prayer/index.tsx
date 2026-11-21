@@ -5,6 +5,7 @@ import PatternBackground from "@/components/PatternBackground";
 import PulsoIcon from "@/components/PulsoIcon";
 import { prayerTopics, type PrayerTopic } from "@/content/prayers";
 import { colors } from "@/constants/theme";
+import BottomAd from "@/components/BottomAd";
 
 // Family Prayer: pick a topic
 export default function PrayerTopics() {
@@ -19,6 +20,7 @@ export default function PrayerTopics() {
             ))}
           </View>
         </View>
+        <BottomAd />
       </ScrollView>
     </PatternBackground>
   );

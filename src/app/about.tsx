@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { GatedLink as A, ParentGateProvider } from "@/components/ParentGate";
 import PatternBackground from "@/components/PatternBackground";
 import { colors, sectionColors } from "@/constants/theme";
+import BottomAd from "@/components/BottomAd";
 
 const CONTACT_EMAIL = "help@littlelights.live";
 const YEAR = 2026;
@@ -79,6 +80,7 @@ export default function About() {
               </P>
             </Section>
           </View>
+          <BottomAd />
         </ScrollView>
       </PatternBackground>
     </ParentGateProvider>

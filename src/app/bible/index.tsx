@@ -1,4 +1,5 @@
 import { SectionList, StyleSheet, Text, View } from "react-native";
+import BottomAd from "@/components/BottomAd";
 import PatternBackground from "@/components/PatternBackground";
 import StoryRow from "@/components/StoryRow";
 import { stories, storySource, testamentNames } from "@/content/stories";
@@ -27,7 +28,12 @@ export default function StoryList() {
           </View>
         )}
         ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
-        ListFooterComponent={<Text style={styles.source}>{storySource}</Text>}
+        ListFooterComponent={
+          <>
+            <Text style={styles.source}>{storySource}</Text>
+            <BottomAd />
+          </>
+        }
         stickySectionHeadersEnabled={false}
         contentContainerStyle={styles.list}
       />

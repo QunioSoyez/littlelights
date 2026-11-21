@@ -3,6 +3,7 @@ import { Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } fr
 import PatternBackground from "@/components/PatternBackground";
 import { colors, sectionColors } from "@/constants/theme";
 import { loadEntries, saveEntries, type JournalEntry } from "@/lib/journal";
+import BottomAd from "@/components/BottomAd";
 
 // Picture prompts for kids who are still learning to read and write
 const PROMPTS = [
@@ -175,6 +176,7 @@ export default function Journal() {
               : "Grown-ups: deleting the app or clearing its storage will erase journal entries."}
           </Text>
         </View>
+        <BottomAd />
       </ScrollView>
     </PatternBackground>
   );

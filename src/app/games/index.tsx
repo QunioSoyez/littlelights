@@ -5,6 +5,7 @@ import { coloringPages } from "@/content/coloringPages";
 import { puzzles } from "@/content/puzzles";
 import { scenes } from "@/content/scenes";
 import { colors, sectionColors } from "@/constants/theme";
+import BottomAd from "@/components/BottomAd";
 
 // Games still to come (shown as a "coming soon" list; hidden when empty)
 const comingSoon: string[] = [];
@@ -55,6 +56,7 @@ export default function GamesList() {
             </View>
           )}
         </View>
+        <BottomAd />
       </ScrollView>
     </PatternBackground>
   );

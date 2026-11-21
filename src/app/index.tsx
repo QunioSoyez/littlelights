@@ -1,5 +1,6 @@
 import { Image } from "expo-image";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import BottomAd from "@/components/BottomAd";
 import HomeTile from "@/components/HomeTile";
 import PatternBackground from "@/components/PatternBackground";
 import { sections } from "@/constants/sections";
@@ -39,6 +40,8 @@ export default function Home() {
                 />
             ))}
           </View>
+
+          <BottomAd />
         </ScrollView>
       </View>
     </PatternBackground>
